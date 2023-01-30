@@ -29,6 +29,7 @@ class Student_base(Base):
         return f"{self.__class__}: {self.name}, {self.surname}, {self.dateofbirth}, {self.phonenumber}, {self.email}"
 
 Base.metadata.create_all(bind=engine)
+#-------------------------------------------------------------------------------------
+
 
 Session = sessionmaker(bind=engine) # соединение с бд
-#-------------------------------------------------------------------------------------

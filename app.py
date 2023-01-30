@@ -2,6 +2,7 @@ from flask import Flask, render_template, current_app, url_for, redirect, reques
 
 from datetime import datetime
 
+
 from database import Student_base, Session
 
 app = Flask(__name__)
@@ -112,4 +113,4 @@ def add_students():
 
 
 if __name__ == '__main__':
-    app.run(debug = True, port=5000, host='127.0.0.1')
+    app.run(port=5000, host='127.0.0.1')
