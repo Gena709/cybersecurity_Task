@@ -9,7 +9,7 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = "super secret key"
 
-with app.app_context():
+with app.app_context(): # создание контекста
     # within this block, current_app points to app.
     print(current_app.name)
 
@@ -80,8 +80,8 @@ def display_change_student(id):
 
 @app.route("/change/<int:id>", methods = ["GET","POST"])
 def change_student(id):
-    student = session.query(Student_base).filter_by(id=id).first()
-    name = request.form.get("name")
+    student = session.query(Student_base).filter_by(id=id).first() # поиск студента по id
+    name = request.form.get("name") # получение данных из фом
     surname = request.form.get("surname")
     dateofbirth = request.form.get("dateofbirth")
     phonenumber = request.form.get("phonenumber")
@@ -92,13 +92,13 @@ def change_student(id):
     if check_data(phonenumber, email, id) == False:
         return redirect(url_for("change_student", id=id))
 
-    student.name = name
+    student.name = name # перезапись данных
     student.surname = surname
     student.dateofbirth = dateofbirth
     student.phonenumber = phonenumber
     student.email = email
 
-    session.commit()
+    session.commit() # сохранить изменения
     flash("Данные студента успешно измененны", "info")
     return redirect(url_for("show_students"))
 #-------------------------------------------------------------------------------------
