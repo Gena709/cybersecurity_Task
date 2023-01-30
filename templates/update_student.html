@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{%block title %}
+Изменение данных студента
+{% endblock %}
+
+{%block body %}
+<div class = "container  m-auto">
+    <h1>Изменение данных студента</h1>
+    <form method="post">
+        <input type="text" name="name" class="form-control" maxlength="100" pattern="[A-Za-zА-Яа-яЁё]+" required value={{student.name}}><br>
+        <input type="text" name="surname" class="form-control" maxlength="100" pattern="[A-Za-zА-Яа-яЁё]+" required value={{student.surname}}><br>
+        <input type="date" name="dateofbirth" class="form-control" min="1800-01-01" max="2024-01-01" required value={{student.dateofbirth}}><br>
+        <input type="tel" name="phonenumber" class="form-control" minlength="9" maxlength="18" required pattern="[0-9]+" value={{student.phonenumber}}><br>
+        <input type="email" name="email" class="form-control" maxlength="100" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$" required value={{student.email}}><br>
+        <input type="submit"  class="btn btn-primary" value="Отправить"><br>
+    </form>
+</div>
+
+<div class="container">
+    {% for message in get_flashed_messages(category_filter=["error"]) %}
+      <br>  <div class="alert alert-warning">{{ message }}</div>
+    {% endfor %}
+    {% for message in get_flashed_messages(category_filter=["info"]) %}
+      <br>  <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% block content %} {% endblock %}
+</div>
+
+
+{% endblock %}

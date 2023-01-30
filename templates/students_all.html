@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{%block title %}
+Учет и добавление студентов
+{% endblock %}
+
+
+
+{%block body %}
+
+
+<div class = "container  m-auto">
+    <h1>Добавление студента</h1>
+    <form method="post">
+        <input type="text" name="name" class="form-control" maxlength="100" pattern="[A-Za-zА-Яа-яЁё]+" required placeholder="Введите имя студента"><br>
+        <input type="text" name="surname" class="form-control" maxlength="100" pattern="[A-Za-zА-Яа-яЁё]+" required placeholder="Введите фамилию студента"><br>
+        <input type="date" name="dateofbirth" class="form-control" min="1800-01-01" max="2024-01-01" required placeholder="Введите дату рождения студента"><br>
+        <input type="tel" name="phonenumber" class="form-control"  minlength="9" maxlength="18" required pattern="[0-9]+"  placeholder="Введите номер телефона студента"><br>
+        <input type="email" name="email" class="form-control" maxlength="100" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$" required placeholder="Введите адрес почты студента"><br>
+        <input type="submit"  class="btn btn-primary" value="Добавить"><br>
+    </form>
+</div>
+
+
+<div class="container">
+    {% for message in get_flashed_messages(category_filter=["error"]) %}
+      <br>  <div class="alert alert-warning">{{ message }}</div>
+    {% endfor %}
+    {% for message in get_flashed_messages(category_filter=["info"]) %}
+      <br>  <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% block content %} {% endblock %}
+</div>
+
+
+<div class = "container mt-5">
+<style>
+table, th, td {
+  table-layout: fixed;
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+td {
+  overflow:auto;
+  background-color: #96D4D4;
+  height: 60px;
+}
+
+th {
+  overflow:auto;
+  color: white;
+  background-color: #384F4F;
+  height: 60px;
+}
+</style>
+    <h1>Учет студентов </h1>
+
+  <table  style="width:100%" align="center">
+      <tr align="center">
+          <th>Имя студента</th>
+          <th>Фамилия студента</th>
+          <th>Дата рождения</th>
+          <th>Номер телефона</th>
+          <th>Почтовый адрес</th>
+          <th>Изменение данных</th>
+          <th>Удаление данных</th>
+      </tr>
+      {% for student in students %}
+      <tr align="center">
+        <td > {{ student.name }}</td>
+        <td >{{ student.surname }}</td>
+        <td >{{ student.dateofbirth }}</td>
+        <td >{{ student.phonenumber }}</td>
+        <td >{{ student.email}}</td>
+        <td ><a href="{{url_for('change_student',id=student.id)}}" >Изменить</a></td>
+        <td ><a href="{{url_for('delete_student',id=student.id)}}">Удалить</a> </td>
+      </tr>
+      {%endfor%}
+  </table>
+
+
+</div>
+
+{% endblock %}
