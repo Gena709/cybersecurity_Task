@@ -23,8 +23,8 @@ class Student_base(Base):
     __tablename__ = "Students" # имя таблицы
 
     id = Column("id", INTEGER, primary_key=True)
-    name = Column("Name", String, nullable=False)
-    surname = Column("Surname", String, nullable=False) # string приравнивается к TEXT
+    name = Column("Name", String, nullable=False) # string приравнивается к TEXT
+    surname = Column("Surname", String, nullable=False)
     dateofbirth = Column("Date", Date, nullable=False)
     phonenumber = Column("Phone_number", String, nullable=False, unique=True) # проверить длину изменить ьип данных
     email = Column("email", String, nullable=False, unique=True)
@@ -42,13 +42,13 @@ class Student_base(Base):
 
 Base.metadata.create_all(bind=engine)
 
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine) # соединение с бд
 session = Session()
 #-------------------------------------------------------------------------------------
 
 
 #----------------------------ПРОВЕРКА ДАННЫХ ИЗ ВЕБ-ФОРМ В БД-------------------------------
-def check_data(phonenumber, email, id=None): # проверяю только номер телефона  и почту, так как остальные поля могут быть одинаковыми
+def check_data(phonenumber, email, id=None): # проверяю только номер телефона  и почту, так как остальные поля могут быть идентичнымит
     if id == None: # если добавляется новый элемент
         if session.query(Student_base).filter_by(phonenumber=phonenumber).first() != None:
             flash("Данный номер телефона уже присутствует в базе данных!", "error")
